@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Giriş Paneli - Anonymous Support</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container auth-box">
+        <h1>KGTU Campus Share</h1>
+        <p class="subtitle">Eğitimde Fırsat Eşitliği ve Dayanışma Platformu</p>
+        
+        <div class="card">
+            <h3 style="margin-top:0;">Hesap Oluştur</h3>
+            <form action="/api/auth/register" method="POST">
+                <input type="text" name="username" placeholder="Öğrenci No / Kullanıcı Adı" required>
+                <input type="password" name="password" placeholder="Güvenli Şifre" required>
+                <button type="submit" style="background-color: #27ae60;">Platforma Katıl</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h3 style="margin-top:0;">Giriş Yap</h3>
+            <form action="/api/auth/login" method="POST">
+                <input type="text" name="username" placeholder="Kullanıcı Adı veya E-posta" required>
+                <input type="password" name="password" placeholder="Şifre" required>
+                <button type="submit">Giriş Yap</button>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

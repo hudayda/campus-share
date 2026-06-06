@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Anonim Destek & Kutu Yönetimi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>📦 Kutu Transferi ve Güvenli İletişim Alanı</h2>
+        <div class="card">
+            <h3>Talep: {{ req.title }}</h3>
+            <p><strong>Açıklama:</strong> {{ req.description }}</p>
+            <p><strong>Güncel Durum:</strong> <span style="color:#d35400; font-weight:bold;">{{ req.status }}</span></p>
+        </div>
+
+        <div class="card">
+            {% if 'Pending' in req.status or 'Beklemede' in req.status %}
+                <form action="/api/requests/{{ req.id }}/offer/" method="POST">
+                    <button type="submit" style="background:#2980b9; color:white; padding:10px; border:none; cursor:pointer;">Bu Talebe Yardım Etmeyi Üstlen</button>
+                </form>
+            {% elif 'Offered' in req.status or 'Yardım' in req.status %}
+                <form action="/api/requests/{{ req.id }}/drop/" method="POST">
+                    <button type="submit" style="background:#27ae60; color:white; padding:10px; border:none; cursor:pointer;">Ürünü Kampüs Kutusuna Bıraktım</button>
+                </form>
+            {% elif 'Box' in req.status or 'Kutuda' in req.status %}
+                <form action="/api/requests/{{ req.id }}/pickup/" method="POST">
+                    <button type="submit" style="background:#8e44ad; color:white; padding:10px; border:none; cursor:pointer;">Ürünü Kutudan Aldım (Talebi Kapat)</button>
+                </form>
+            {% else %}
+                <p>✅ Bu yardımlaşma başarıyla tamamlanmıştır.</p>
+            {% endif %}
+        </div>
+
+        <div class="card">
+            <h3>💬 Anonim Mesajlaşma Sistemi</h3>
+            <form action="/api/requests/{{ req.id }}/messages/" method="POST">
+                <input type="text" name="message" placeholder="Kimliğinizi açık etmeden mesaj yazın..." required style="width:70%; padding:5px;">
+                <button type="submit" style="background:#7f8c8d; color:white; width:auto; padding: 5px 15px; border:none; cursor:pointer;">Gönder</button>
+            </form>
+        </div>
+        <a href="/feed">← Akışa Geri Dön</a>
+    </div>
+</body>
+</html>

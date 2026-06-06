@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Yeni İlan Girişi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container" style="max-width:600px;">
+        <h2>📝 Yeni Dayanışma İlanı Oluştur</h2>
+        <div class="card">
+            <form action="/api/requests/" method="POST">
+                
+                <label style="font-weight:bold; color:#2c3e50;">İlan Türü:</label>
+                <select name="type">
+                    <option value="İhtiyaç Talebi">🙋 Bir Şeye İhtiyacım Var (İhtiyaç Talebi)</option>
+                    <option value="Eşya Bağışı">🎁 Elindeki Bir Eşyayı Bağışlamak İstiyorum (Bağış İlanı)</option>
+                </select>
+
+                <label style="font-weight:bold; color:#2c3e50;">Başlık:</label>
+                <input type="text" name="title" placeholder="Örn: Temel Matematik 1 Kitabı veya Siyah Kışlık Mont" required>
+                
+                <label style="font-weight:bold; color:#2c3e50;">Açıklama / Detaylar:</label>
+                <textarea name="description" rows="4" placeholder="Ürünün durumu, hangi fakülteye yakın teslim edilebileceği vb. detayları yazın..." required></textarea>
+                
+                <label style="font-weight:bold; color:#2c3e50;">Kategori:</label>
+                <select name="category">
+                    <option value="Eğitim">Eğitim / Kitap / Kırtasiye</option>
+                    <option value="Gıda">Gıda / Atıştırmalık</option>
+                    <option value="Eşya">Kıyafet / Küçük Eşya</option>
+                </select>
+                
+                <button type="submit" style="margin-top:15px; background:#27ae60;">İlanı Güvenli Yayınla</button>
+            </form>
+            <br>
+            <a href="/feed" style="color:#64748b; text-decoration:none; font-size:14px;">← Akışa Geri Dön</a>
+        </div>
+    </div>
+</body>
+</html>

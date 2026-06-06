@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8"><title>Kampüs İlan Akışı</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="header-nav">
+            <h2>🏛️ Kampüs Dayanışma Havuzu</h2>
+            <div>
+                <a href="/post" style="background:#27ae60; color:white; padding:10px 15px; text-decoration:none; border-radius:6px; font-weight:bold; font-size:14px;">+ İlan / Bağış Ekle</a>
+                <a href="/logout" style="color:#e74c3c; margin-left:15px; text-decoration:none; font-size:14px;">Çıkış</a>
+            </div>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">💚 Bugüne Kadar Karşılanan Destek: {{ total_helped }}</div>
+            <div class="stat-card" style="background:#fef3c7; color:#b45309;">📦 Şu An Kutuda Bekleyen Ürün: {{ active_in_box }}</div>
+        </div>
+
+        <div class="request-list">
+            {% for req in requests %}
+                <div class="request-card {% if req.type == 'Eşya Bağışı' %}bagis{% endif %} {% if 'Tamamlandı' in req.status %}completed{% endif %}">
+                    <span class="badge badge-type">{% if req.type == 'Eşya Bağışı' %}🎁 Bağış İlanı{% else %}🙋 İhtiyaç Talebi{% endif %}</span>
+                    <span class="badge badge-cat">{{ req.category }}</span>
+                    
+                    <h3 style="margin-top:0; color:#2c3e50;">{{ req.title }}</h3>
+                    <p style="color:#475569; font-size:14px;">{{ req.description }}</p>
+                    <hr style="border:0; border-top:1px solid #f1f5f9;">
+                    <small style="color:#94a3b8;">Durum: <strong style="color:#d35400;">{{ req.status }}</strong> | İlan Tarihi: {{ req.timestamp }}</small>
+                    <br>
+                    <a href="/chat/{{ req.id }}" class="btn-action">Süreci Yönet / İletişim</a>
+                </div>
+            {% else %}
+                <p>Şu an aktif bir ilan bulunmuyor. Yeni bir tane siz ekleyebilirsiniz!</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>
